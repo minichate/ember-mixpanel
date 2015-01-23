@@ -1,25 +1,70 @@
-# Ember-cli-mixpanel
+# ember-cli-mixpanel
 
-This README outlines the details of collaborating on this Ember addon.
+The goal of ember-cli-mixpanel is to provide a Ember-friendly wrapper around the mixpanel library, along with a few helpers to help you track events. All you need to do is include the mixpanel library in your `index.html` file.
 
-## Installation
+# Getting Started
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+This is an ember-cli addon, so all you need to do is
 
-## Running
+```bash
+    npm install --save ember-cli-mixpanel
+```
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+After that, you should have a `mixpanel` dependency injected on your routes, controllers and views. You can do things like:
 
-## Running Tests
+```javascript
+    this.get('mixpanel.people.set')({
+        '$email': 'foo@example.com',
+        'foobar': 'baz'
+    });
+```
 
-* `ember test`
-* `ember test --server`
+or:
 
-## Building
+```javascript
+    this.get('mixpanel.track')( "I'm an event name", {
+        'ember': 'great',
+        'freshbooks': 'greatest'
+    });
+```
 
-* `ember build`
+Note that `this.get('mixpanel.XXX')` accesses return a function (provided by the Mixpanel library), so you'll want to subsequently invoke that function with whatever arguments it takes. See https://mixpanel.com/help/reference/javascript-full-api-reference for a list of available methods.
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+## Click tracking
+
+In Ember views, there is an additional method available on `this.mixpanel` called `trackClick`. Invoking that method with a javascript click event will track the click in Mixpanel with the following niceties:
+
+`Ember.View` has been reopened to accept an optional `data-mixpanel-event` attribute. If this attribute is on the DOM element we'll use that as the event name in Mixpanel.
+
+Try something like:
+
+```javascript
+    Ember.View.extend({
+        instrumentClicks: function(e) {
+            this.get('mixpanel').trackClick(e, {
+                'additional': 'properties'
+            })
+        }.on('click')
+    });
+```
+
+Supposing the underlying DOM element's markup is something like:
+
+```html
+    <div data-mixpanel-event="Foo Event Name">
+       <checkbox name="helloworld" />
+       <label for="helloworld">Hello, world!</label>
+    </div>
+```
+
+Whenever the label, checkbox or div is clicked an event named `Click: Foo Event Name` will be logged in Mixpanel with the additional properties on it as described above. Neat!
+
+Note: **ember-cli-mixpanel** will walk up the DOM tree and use the `data-mixpanel-event` attribute from the closest parent to the element that was clicked on.
+
+## Safety included
+
+In some environments (development, testing, etc.) the `window.mixpanel` object might not exist. You don't need to guard aginst this case, since **ember-cli-mixpanel** will neuter calls to Mixpanel methods if they can't be performed. You'll see a WARNING log entry in your browser's console if we can't find the `window.mixpanel` object.
+
+# Licence
+
+ This library is lovingly brought to you by the FreshBooks developers. We've released it under the MIT license.
