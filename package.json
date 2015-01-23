@@ -1,7 +1,6 @@
 {
   "name": "ember-cli-mixpanel",
   "version": "0.0.0",
-  "private": true,
   "directories": {
     "doc": "doc"
   },
