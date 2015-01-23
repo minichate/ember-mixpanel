@@ -1,3 +1,3 @@
 module.exports = {
-  name: 'ember-cli-mixpanel'
+  name: 'ember-mixpanel'
 };

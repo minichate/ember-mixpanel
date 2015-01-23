@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import Views from 'ember-cli-mixpanel/views';
-import Controllers from 'ember-cli-mixpanel/controllers';
-import Routes from 'ember-cli-mixpanel/routes';
+import Views from 'ember-mixpanel/views';
+import Controllers from 'ember-mixpanel/controllers';
+import Routes from 'ember-mixpanel/routes';
 
 export default {
   name: 'mixpanel',
