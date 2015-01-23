@@ -4,6 +4,10 @@
   "directories": {
     "doc": "doc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/minichate/ember-mixpanel.git"
+  },
   "scripts": {
     "start": "ember server",
     "build": "ember build"
