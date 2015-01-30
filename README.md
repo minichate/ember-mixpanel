@@ -63,7 +63,7 @@ Note: **ember-mixpanel** will walk up the DOM tree and use the `data-mixpanel-ev
 
 ## Safety included
 
-In some environments (development, testing, etc.) the `window.mixpanel` object might not exist. You don't need to guard aginst this case, since **ember-mixpanel** will neuter calls to Mixpanel methods if they can't be performed. You'll see a WARNING log entry in your browser's console if we can't find the `window.mixpanel` object.
+In some environments (development, testing, etc.) the `window.mixpanel` object might not exist. You don't need to guard against this case, since **ember-mixpanel** will neuter calls to Mixpanel methods if they can't be performed. You'll see a WARNING log entry in your browser's console if we can't find the `window.mixpanel` object.
 
 # Licence
 
