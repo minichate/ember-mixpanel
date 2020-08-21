@@ -23,7 +23,7 @@ export default Ember.Mixin.create({
 
       unknownProperty: function(key) {
         if (!this.get('content')) {
-          return Ember.K;
+          return function() {};
         }
 
         return this.get('content')[key].bind(this.get('content'));
@@ -33,7 +33,7 @@ export default Ember.Mixin.create({
 
   unknownProperty: function(key) {
     if (!this.content) {
-      return Ember.K;
+      return function() {};
     }
 
     var f = this._super(key);
